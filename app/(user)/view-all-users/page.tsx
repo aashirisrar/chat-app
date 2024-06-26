@@ -1,7 +1,7 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
 import getUsers from "@/app/api/user/getusers";
 import user from "@/types/user";
+import { useQuery } from "react-query";
 
 export default function Home() {
   const { data, isLoading, isError } = useQuery({
@@ -15,7 +15,7 @@ export default function Home() {
   if (isError) return <div>Error while loading data</div>;
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto flex flex-col items-center justify-center gap-6 mt-6">
       <div>All Users</div>
       <div>
         {data?.map((user: user) => (

@@ -10,8 +10,8 @@ const routes = [
     href: "/view-all-users",
   },
   {
-    label: "View User by Id",
-    href: "/view-user-by-id",
+    label: "Search User by Id",
+    href: "/search-user-by-id",
   },
   {
     label: "Create Item",
@@ -24,8 +24,8 @@ const routes = [
   },
 
   {
-    label: "View Item by Id",
-    href: "/view-item-by-id",
+    label: "Search Item by Id",
+    href: "/search-item-by-id",
   },
 ];
 
@@ -33,9 +33,12 @@ const Navbar = () => {
   return (
     <div className="flex items-center justify-center gap-6 p-5 bg-secondary-foreground text-primary-foreground font-semibold children *:cursor-pointer">
       {routes.map((route) => (
-        <div className="hover:bg-primary-foreground hover:text-primary transition py-1 px-2 rounded">
-          <Link href={route.href}>{route.label}</Link>
-        </div>
+        <Link href={route.href}>
+          {" "}
+          <div className="hover:bg-primary-foreground hover:text-primary transition py-1 px-2 rounded">
+            {route.label}{" "}
+          </div>
+        </Link>
       ))}
     </div>
   );
