@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button";
 import createUser from "@/app/api/user/createuser";
 
 export default function CreateUserPage() {
-  const [id, setId] = useState<number>();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [enabled, setEnabled] = useState(false);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["users", id],
-    queryFn: async () => await createUser(),
+    queryKey: ["users", email, password],
+    queryFn: async () => await createUser(email, password),
     staleTime: 10000,
     enabled: enabled,
 
@@ -20,11 +21,14 @@ export default function CreateUserPage() {
   });
 
   function search(formData) {
-    const id = formData.get("id");
-    const name = formData.get("name");
     const email = formData.get("email");
     const password = formData.get("password");
 
+    setEmail(email);
+    setPassword(password);
+    // console.log(data);
+
+    // console.log(id, name, email, password);
     setEnabled(true);
   }
 
@@ -38,10 +42,6 @@ export default function CreateUserPage() {
       <div>
         <div className="flex flex-col gap-3">
           <form action={search} className="flex flex-col gap-4">
-            <label>id</label>
-            <input type="string" className="bg-secondary border" name="id" />
-            <label>name</label>
-            <input type="string" className="bg-secondary border" name="name" />
             <label>email</label>
             <input type="email" className="bg-secondary border" name="email" />
             <label>password</label>
@@ -54,12 +54,6 @@ export default function CreateUserPage() {
           </form>
         </div>
       </div>
-      {data && (
-        <div>
-          <div>id: {data.id}</div>
-          <div>email: {data.email}</div>
-        </div>
-      )}
     </div>
   );
 }
